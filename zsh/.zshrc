@@ -111,3 +111,4 @@ export PATH=$PATH:$HOME/bin
 
 # fastfetch
 export PATH="$HOME/.local/bin:$PATH"
+export PATH=$PATH:/usr/local/go/bin
