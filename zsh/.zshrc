@@ -112,3 +112,34 @@ export PATH=$PATH:$HOME/bin
 # fastfetch
 export PATH="$HOME/.local/bin:$PATH"
 export PATH=$PATH:/usr/local/go/bin
+# alias vim='nvim'
+bindkey -s ^f "tmux-sessionizer\n"
+bindkey -s '\eh' "tmux-sessionizer -s 0\n"
+bindkey -s '\et' "tmux-sessionizer -s 1\n"
+bindkey -s '\en' "tmux-sessionizer -s 2\n"
+bindkey -s '\es' "tmux-sessionizer -s 3\n"
+export LS_COLORS="$LS_COLORS:ow=01;30;42:tw=01;30;42:st=01;37;44"
+
+# nmtui - vague theme colors
+export NEWT_COLORS='
+root=,black
+border=blue,black
+window=lightgray,black
+shadow=,black
+title=blue,black
+button=black,lightgray
+actbutton=black,blue
+checkbox=lightgray,black
+actcheckbox=black,blue
+entry=lightgray,black
+disentry=gray,black
+label=lightgray,black
+listbox=lightgray,black
+actlistbox=black,blue
+textbox=lightgray,black
+acttextbox=black,blue
+helpline=gray,black
+roottext=lightgray,black
+emptyscale=,gray
+fullscale=,blue
+'
