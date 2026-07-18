@@ -174,7 +174,6 @@ exec_always ~/dotfiles/polybar/launch.sh
 #vague theme
 #class
 # class                 border    background text      indicator child_border
-
 client.focused          #6e94b2   #252530    #cdcdcd  #6e94b2   #6e94b2
 client.focused_inactive #252530   #141415    #606079  #252530   #252530
 client.unfocused        #252530   #141415    #606079  #252530   #252530
@@ -191,7 +190,7 @@ gaps top 27
 
 smart_gaps off
 exec --no-startup-id picom --backend glx -b
-exec --no-startup-id feh --bg-scale /home/ukiroku/Documents/Backgrounds/railway.jpg
+exec --no-startup-id feh --bg-fill /home/ukiroku/Documents/Backgrounds/Jacques.jpg
 bindsym Print         exec --no-startup-id maim | xclip -selection clipboard -t image/png
 bindsym $mod+Shift+s  exec --no-startup-id maim -s | xclip -selection clipboard -t image/png
 
@@ -204,4 +203,30 @@ exec_always --no-startup-id ~/.local/bin/nightlight.sh
 # Audio tray (optional)
 # exec --no-startup-id pasystray
 
-
+# bar {
+#     position bottom
+#     mode dock
+#     hidden_state hide
+#     modifier Mod4
+#
+#     status_command i3status
+#
+#     tray_output primary
+#
+#     workspace_buttons yes
+#     strip_workspace_numbers no
+#
+#     font pango:JetBrainsMono Nerd Font SemiBold 9
+#
+#     colors {
+#         background #141415
+#         statusline #cdcdcd
+#         separator  #606079
+#
+#         focused_workspace  #6e94b2 #6e94b2 #141415
+#         active_workspace   #252530 #252530 #cdcdcd
+#         inactive_workspace #141415 #141415 #606079
+#         urgent_workspace   #d8647e #d8647e #141415
+#         binding_mode       #bb9dbd #bb9dbd #141415
+#     }
+# }

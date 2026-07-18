@@ -1,0 +1,38 @@
+general {
+    colors = true
+    interval = 2
+
+    color_good = "#7fa563"
+    color_bad = "#d8647e"
+    color_degraded = "#90DDF0"
+}
+
+order += "memory"
+order += "wireless _first_"
+order += "battery all"
+order += "tztime local"
+
+memory {
+    format = "󰘚 %used"
+}
+
+wireless _first_ {
+    format_up = "󰤨 %essid"
+    format_down = "󰤭 Offline"
+}
+
+battery all {
+    format = "󰁹 %percentage"
+    format_down = ""
+    status_chr = "󰂄"
+    status_bat = "󰁹"
+    status_full = "󰁹"
+    status_unk = "󰂑"
+    low_threshold = 15
+}
+
+tztime local {
+    format = "󰃭 %a %Y-%m-%d "
+}
+
+

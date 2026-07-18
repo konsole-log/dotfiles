@@ -143,3 +143,4 @@ roottext=lightgray,black
 emptyscale=,gray
 fullscale=,blue
 '
+# source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh

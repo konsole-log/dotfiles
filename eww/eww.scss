@@ -1,0 +1,71 @@
+* {
+  all: unset;
+  font-family: "JetBrainsMono Nerd Font";
+  font-size: 11px;
+}
+
+$bg:          #141415;
+$bg-alt:      #252530;
+$fg:          #cdcdcd;
+$primary:     #6e94b2;
+$secondary:   #bb9dbd;
+$disabled:    #606079;
+$alert:       #d8647e;
+$aqua:        #aeaed1;
+$yellow:      #f3be7c;
+$white:       #d7d7d7;
+
+window {
+  background-color: $bg;
+  color: $fg;
+}
+
+.bar {
+  padding: 0 8px;
+  border-radius: 8px;
+}
+
+// workspaces
+.workspaces {
+  .ws {
+    color: $disabled;
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-family: "JetBrainsMono Nerd Font";
+    &:hover { color: $fg; }
+  }
+  .ws-active {
+    color: $primary;
+    padding: 1px 7px;
+    border-radius: 6px;
+    font-family: "JetBrainsMono Nerd Font";
+  }
+}
+
+.clock {
+  color: $fg;
+  font-weight: bold;
+}
+
+// pill modules
+.module {
+  background-color: $bg-alt;
+  border-radius: 6px;
+  padding: 1px 8px;
+
+  .icon {
+    font-family: "JetBrainsMono Nerd Font";
+    color: $primary;
+  }
+  .text {
+    color: $white;
+  }
+}
+
+.mem .icon        { color: $aqua; }
+.brightness .icon { color: $yellow; }
+.audio .icon      { color: $white; }
+.wifi .icon       { color: $white; }
+
+.bat-ok .icon   { color: $white; }
+.bat-low .icon  { color: $alert; }

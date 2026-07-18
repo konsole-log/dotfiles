@@ -1,0 +1,76 @@
+(defwindow topbar
+  :monitor 0
+  :geometry (geometry :x "2%"
+                       :y "2px"
+                       :width "96%"
+                       :height "25px"
+                       :anchor "top center")
+  :stacking "fg"
+  :exclusive true
+  :reserve (struts :distance "29px" :side "top")
+  (bar))
+
+(defwidget bar []
+  (centerbox :orientation "h" :class "bar"
+    (box :class "left" :space-evenly false :halign "start" :spacing 4
+      (workspaces))
+    (box :class "center" :halign "center"
+      (label :class "clock" :text time))
+    (box :class "right" :space-evenly false :halign "end" :spacing 4
+      (module :icon "󰾆" :text mem :class "mem")
+      (module :icon "󰍹" :text "${brightness}%" :class "brightness")
+      (module :icon bat_icon :text "${EWW_BATTERY.BAT1.capacity}%" :class bat_class)
+      (module :icon vol_icon :text "${volume}%" :class "audio")
+      (module :icon wifi_icon :text wifi_ssid :class "wifi"))))
+
+(defwidget module [icon text class]
+  (box :class "module ${class}" :spacing 4
+    (label :class "icon" :text icon)
+    (label :class "text" :text text)))
+
+(defwidget workspaces []
+  (box :class "workspaces" :spacing 3
+    (for ws in workspace_list
+      (button :class {ws.focused ? "ws-active" : "ws"}
+              :onclick "i3-msg workspace ${ws.name}"
+              :text "${ws.focused ? "" : ws.name}"))))
+
+(deflisten workspace_list
+  :initial "[]"
+  "i3-msg -t subscribe -m '[\"workspace\"]' | while read -r _; do i3-msg -t get_workspaces; done")
+
+(defpoll time :interval "1s" "date '+%H:%M'")
+
+(defpoll mem :interval "2s"
+  "free -g | awk '/^Mem:/ {printf \"%s/%sG\", $3, $2}'")
+
+(defpoll brightness :interval "2s"
+  "brightnessctl -m | awk -F, '{gsub(\"%\",\"\",$4); print $4}'")
+
+(defpoll bat_icon :interval "15s"
+  "cat /sys/class/power_supply/BAT1/capacity | awk '{
+    if ($1 >= 90) print \"󰂁\"; else if ($1 >= 80) print \"󰂀\";
+    else if ($1 >= 60) print \"󰁿\"; else if ($1 >= 50) print \"󰁾\";
+    else if ($1 >= 40) print \"󰁽\"; else if ($1 >= 20) print \"󰁼\";
+    else print \"󰁻\"
+  }'")
+
+(defpoll bat_class :interval "15s"
+  "cat /sys/class/power_supply/BAT1/capacity | awk '{ if ($1 < 20) print \"bat-low\"; else print \"bat-ok\" }'")
+
+(defpoll volume :interval "1s"
+  "pactl get-sink-volume @DEFAULT_SINK@ | awk -F'/' '/Volume/{gsub(\" \",\"\",$2); print $2}' | head -c -2")
+
+(defpoll vol_icon :interval "1s"
+  "pactl get-sink-mute @DEFAULT_SINK@ | grep -q yes && echo '󰖁' || pactl get-sink-volume @DEFAULT_SINK@ | awk -F'/' '/Volume/{gsub(\" \",\"\",$2); gsub(\"%\",\"\",$2); if ($2 > 60) print \"󰕾\"; else if ($2 > 0) print \"󰖀\"; else print \"󰕿\"}'")
+
+(defpoll wifi_ssid :interval "5s"
+  "nmcli -t -f active,ssid dev wifi | grep '^yes' | cut -d: -f2")
+
+(defpoll wifi_icon :interval "5s"
+  "nmcli -t -f active,signal dev wifi | grep '^yes' | cut -d: -f2 | awk '{
+    if ($1 == \"\") print \"󰤭\";
+    else if ($1 >= 80) print \"󰤨\"; else if ($1 >= 60) print \"󰤥\";
+    else if ($1 >= 40) print \"󰤢\"; else if ($1 >= 20) print \"󰤟\";
+    else print \"󰤯\"
+  }'")
